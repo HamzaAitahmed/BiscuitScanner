@@ -1,9 +1,12 @@
 import 'package:biscuit_scanner/about.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:developer' as devtools;
+
+import 'login.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,6 +19,7 @@ class _HomeState extends State<Home> {
   File? filePath;
   String label = '';
   double confidence = 0.0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> _tfLteInit() async {
     await Tflite.loadModel(
@@ -108,6 +112,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = _auth.currentUser;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -120,6 +125,33 @@ class _HomeState extends State<Home> {
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
+            ),
+            DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+                items: [
+                  DropdownMenuItem(
+                    value: "logout",
+                    child: Text("Déconnexion"),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value == "logout") {
+                    _auth.signOut();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  }
+                },
+                hint: Row(
+                  children: [
+                    Icon(Icons.person, color: Colors.white),
+                    SizedBox(width: 5),
+                    Text(user?.email ?? "Utilisateur", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

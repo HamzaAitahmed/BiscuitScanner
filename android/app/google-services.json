@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "800987713910",
+    "project_id": "biscuit-scanner",
+    "storage_bucket": "biscuit-scanner.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800987713910:android:1f99146ae74cba8c50aa57",
+        "android_client_info": {
+          "package_name": "ma.emsi.biscuit_scanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVM-wzUHgkjVZE2LBeCr6wiF5ac6Fhp50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
